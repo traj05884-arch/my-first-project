@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="chania.css">
+<title>Form</title>
+
+<style>
+body {font-family: Arial; text-align:center; margin-top:40px;}
+input, select, button {margin:5px; padding:8px;}
+</style>
+
+</head>
+<body>
+
+<h2>Student Form</h2>
+
+<form onsubmit="return check()">
+
+  <label>Name:</label><br>
+  <input type="text" id="name"><br>
+
+  <label>Email:</label><br>
+  <input type="email" id="email"><br>
+
+  <label>Password:</label><br>
+  <input type="password" id="pass"><br>
+
+  <label>Gender:</label><br>
+  <input type="radio" name="g"> Male
+  <input type="radio" name="g"> Female<br>
+
+  <label>Subjects:</label><br>
+  <input type="checkbox"> Math
+  <input type="checkbox"> Science<br>
+
+  <label>Course:</label><br>
+  <select id="course">
+    <option value="">Select</option>
+    <option>BCA</option>
+    <option>BBA</option>
+  </select><br>
+
+  <button type="button" onclick="check()">Submit</button>
+
+</form>
+
+<script>
+function check(){
+  let n = document.getElementById("name").value;
+  let e = document.getElementById("email").value;
+  let p = document.getElementById("pass").value;
+  let c = document.getElementById("course").value;
+
+  if(n==""  e==""  p=="" || c==""){
+    alert("Fill all fields");
+    return false;
+  }
+
+  alert("Submitted 😏");
+}
+</script>
+
+</body>
+</html>
