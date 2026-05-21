@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+    <title>FreshMart Supermarket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #10b981; /* Emerald green */
+            --primary-hover: #059669;
+            --accent-color: #f59e0b; /* Amber */
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--text-main);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .cart-btn {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-btn:hover {
+            background-color: #d97706;
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1920') center/cover;
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            animation: slideUp 1s ease-out backwards;
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
+            animation: slideUp 1.2s ease-out backwards;
+        }
+
+        .shop-now-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 20px -3px rgba(16, 185, 129, 0.6);
+        }
+
+        /* Main Content - Products Grid */
+        main {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: var(--primary-color);
+        }
+
+        .product-image {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-info {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            margin-top: auto;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 15px -3px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-main);
+            color: #f8fafc;
+            padding: 5rem 2rem 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col p {
+            margin-bottom: 0.8rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .footer-col a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero {
+                padding: 6rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">🛒 Fresh<span>Mart</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#deals">Weekly Deals</a></li>
+                </ul>
+            </nav>
+            <a href="#cart" class="cart-btn">🛒 Cart (0)</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Fresh Groceries, Delivered Daily</h1>
+            <p>Shop from our wide selection of farm-fresh produce, premium quality meats, and everyday essentials. Taste the freshness, trust the quality.</p>
+            <a href="#products" class="shop-now-btn">Start Shopping</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <h2 class="section-title" id="products">Featured Products</h2>
+        <div class="products-grid">
+            
+            <!-- Product 1 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&q=80&w=600" alt="Fresh Bananas" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Fresh Produce</span>
+                    <h3 class="product-title">Organic Bananas (Bunch)</h3>
+                    <div class="product-price">$2.99 / lb</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&q=80&w=600" alt="Milk" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Dairy</span>
+                    <h3 class="product-title">Farm Whole Milk - 1 Gallon</h3>
+                    <div class="product-price">$3.49</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=600" alt="Sourdough Bread" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Bakery</span>
+                    <h3 class="product-title">Artisan Sourdough Bread</h3>
+                    <div class="product-price">$4.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1550411294-85718dfb7dce?auto=format&fit=crop&q=80&w=600" alt="Avocados" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Fresh Produce</span>
+                    <h3 class="product-title">Hass Avocados (3-pack)</h3>
+                    <div class="product-price">$5.49</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1606859194285-d7b322f87ee6?auto=format&fit=crop&q=80&w=600" alt="Chicken Breast" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Meat & Poultry</span>
+                    <h3 class="product-title">Free-Range Chicken Breast</h3>
+                    <div class="product-price">$7.99 / lb</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+             <!-- Product 6 -->
+             <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1587049352847-8d4e8941554a?auto=format&fit=crop&q=80&w=600" alt="Coffee Beans" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Pantry</span>
+                    <h3 class="product-title">Premium Roast Coffee Beans</h3>
+                    <div class="product-price">$12.99</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>FreshMart</h3>
+                <p>Providing your family with the freshest and highest quality groceries since 2010. Support local farming.</p>
+            </div>
+            <div class="footer-col" id="categories">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Shop Fresh Produce</a></li>
+                    <li><a href="https://www.freshmart.com/about">About FreshMart</a></li>
+                    <li><a href="https://lavneeshcyber.wordpress.com">Join Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Delivery Information</a></li>
+                    <li><a href="#">Returns Policy</a></li>
+                    <li><a href="#">FAQ & Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Store Location</h3>
+                <p>123 Grocery Lane<br>Food City, FC 12345</p>
+                <p><strong>Phone:</strong> (555) 123-4567<br><strong>Email:</strong> support@freshmart.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 FreshMart Supermarket. All rights reserved. Designed with ❤️ for freshness.
+        </div>
+    </footer>
+    <script>
+        // Simple cart functionality (for demonstration)
+        const cartBtn = document.querySelector('.cart-btn');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        let cartCount = 0;
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                cartCount++;
+                cartBtn.textContent = `🛒 Cart (${cartCount})`;
+            });
+        });
+    </script>
+
+</body>
+</html>
