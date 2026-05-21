@@ -1,0 +1,60 @@
+* {
+box-sizing: border-box;
+}
+body {
+font-family: "Lucida Sans", sans-serif;
+font-size: 17px;
+}
+.grid-container {
+display: grid;
+grid-template-areas:
+'header'
+'menu'
+'main'
+'facts'
+'footer';
+background-color: white;
+}
+.header {
+grid-area: header;
+background-color: purple;
+text-align: center;
+color: #ffffff;
+}
+.header > h1 {
+font-size: 40px;
+}
+.menu {
+grid-area: menu;
+}
+.menu ul {
+list-style-type: none;
+}
+.menu li {
+background-color: #33b5e5;
+color: #ffffff;
+}
+.menu li:hover {
+background-color: #0099cc;
+}
+.content {
+grid-area: main;
+}
+.content > h1 {
+font-size: 30px;
+margin-bottom: 7px;
+}
+.facts {
+grid-area: facts;
+border: 1px solid #0099cc;
+background-color: beige;
+}
+.facts > h2 {
+font-size: 20px;
+}
+.footer {
+grid-area: footer;
+background-color: #0099cc;
+color: #ffffff;
+text-align: center;
+}
